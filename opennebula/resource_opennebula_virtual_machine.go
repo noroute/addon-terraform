@@ -720,7 +720,12 @@ func waitForVmState(d *schema.ResourceData, meta interface{}, state string) (int
 	return stateConf.WaitForState()
 }
 
-func generateVmXML(d *schema.ResourceData) (string, error) {
+type ResourceData interface{
+	Get(key string) interface{}
+	GetOk(key string) (interface{}, bool)
+}
+
+func generateVmXML(d ResourceData) (string, error) {
 
 	//Generate CONTEXT definition
 	//context := d.Get("context").(*schema.Set).List()
